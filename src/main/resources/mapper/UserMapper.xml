@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="UserResultMap" type="com.example.demo.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="UserResultMap">
+        SELECT id, username, password, sex, email
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.User">
+        INSERT INTO users (username, password, sex, email)
+        VALUES (#{username}, #{password}, #{sex}, #{email})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.User">
+        UPDATE users
+        SET username = #{username},
+            password = #{password},
+            sex = #{sex},
+            email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM users
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="UserResultMap">
+        SELECT id, username, password, sex, email
+        FROM users
+    </select>
+</mapper>

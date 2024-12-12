@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserAuthorityMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="UserAuthorityResultMap" type="com.example.demo.entity.User_authority">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="authorityId" column="authority_id"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="UserAuthorityResultMap">
+        SELECT id, user_id, authority_id, remark
+        FROM user_authority
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.User_authority">
+        INSERT INTO user_authority (user_id, authority_id, remark)
+        VALUES (#{userId}, #{authorityId}, #{remark})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.User_authority">
+        UPDATE user_authority
+        SET user_id = #{userId},
+            authority_id = #{authorityId},
+            remark = #{remark}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM user_authority
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="UserAuthorityResultMap">
+        SELECT id, user_id, authority_id, remark
+        FROM user_authority
+    </select>
+</mapper>

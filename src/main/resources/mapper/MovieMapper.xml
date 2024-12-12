@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.MovieMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="MovieResultMap" type="com.example.demo.entity.Movie">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="release_date" column="release_date"/>
+        <result property="director" column="director"/>
+        <result property="cast" column="cast"/>
+        <result property="rating" column="rating"/>
+        <result property="duration" column="duration"/>
+        <result property="plot" column="plot"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="MovieResultMap">
+        SELECT id, title, release_date, director, cast, rating, duration, plot, count
+        FROM movies
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.Movie">
+        INSERT INTO movies (title, release_date, director, cast, rating, duration, plot, count)
+        VALUES (#{title}, #{release_date}, #{director}, #{cast}, #{rating}, #{duration}, #{plot}, #{count})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.Movie">
+        UPDATE movies
+        SET title = #{title},
+            release_date = #{release_date},
+            director = #{director},
+            cast = #{cast},
+            rating = #{rating},
+            duration = #{duration},
+            plot = #{plot},
+            count = #{count}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM movies
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="MovieResultMap">
+        SELECT id, title, release_date, director, cast, rating, duration, plot, count
+        FROM movies
+    </select>
+</mapper>

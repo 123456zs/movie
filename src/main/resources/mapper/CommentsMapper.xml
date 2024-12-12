@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CommentsMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="CommentsResultMap" type="com.example.demo.entity.Comments">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="movieId" column="movie_id"/>
+        <result property="title" column="title"/>
+        <result property="message" column="message"/>
+        <result property="message_date" column="message_date"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="CommentsResultMap">
+        SELECT id, user_id, movie_id, title, message, message_date
+        FROM comments
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.Comments">
+        INSERT INTO comments (user_id, movie_id, title, message, message_date)
+        VALUES (#{userId}, #{movieId}, #{title}, #{message}, #{message_date})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.Comments">
+        UPDATE comments
+        SET user_id = #{userId},
+            movie_id = #{movieId},
+            title = #{title},
+            message = #{message},
+            message_date = #{message_date}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM comments
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="CommentsResultMap">
+        SELECT id, user_id, movie_id, title, message, message_date
+        FROM comments
+    </select>
+</mapper>

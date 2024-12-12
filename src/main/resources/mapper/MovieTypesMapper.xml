@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.MovieTypesMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="MovieTypesResultMap" type="com.example.demo.entity.Movie_types">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="movieId" column="movie_id"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="MovieTypesResultMap">
+        SELECT id, user_id, movie_id
+        FROM movie_types
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.Movie_types">
+        INSERT INTO movie_types (user_id, movie_id)
+        VALUES (#{userId}, #{movieId})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.Movie_types">
+        UPDATE movie_types
+        SET user_id = #{userId},
+            movie_id = #{movieId}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM movie_types
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="MovieTypesResultMap">
+        SELECT id, user_id, movie_id
+        FROM movie_types
+    </select>
+</mapper>

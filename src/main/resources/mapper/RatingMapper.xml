@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.RatingMapper">
+
+    <!-- 定义ResultMap -->
+    <resultMap id="RatingResultMap" type="com.example.demo.entity.Rating">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="movieId" column="movie_id"/>
+        <result property="rating" column="rating"/>
+        <result property="rateDate" column="rate_date"/>
+    </resultMap>
+
+    <!-- 查询单条记录 -->
+    <select id="selectById" resultMap="RatingResultMap">
+        SELECT id, user_id, movie_id, rating, rate_date
+        FROM ratings
+        WHERE id = #{id}
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.example.demo.entity.Rating">
+        INSERT INTO ratings (user_id, movie_id, rating, rate_date)
+        VALUES (#{userId}, #{movieId}, #{rating}, #{rateDate})
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.example.demo.entity.Rating">
+        UPDATE ratings
+        SET user_id = #{userId},
+            movie_id = #{movieId},
+            rating = #{rating},
+            rate_date = #{rateDate}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById">
+        DELETE FROM ratings
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultMap="RatingResultMap">
+        SELECT id, user_id, movie_id, rating, rate_date
+        FROM ratings
+    </select>
+</mapper>
